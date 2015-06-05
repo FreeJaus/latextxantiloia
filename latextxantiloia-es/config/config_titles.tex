@@ -1,0 +1,58 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- config.tex
+
+\newcommand\subsectiontitle{}
+\newcommand{\titlesubsection}[1]{\subsection{#1}\renewcommand{\subsectiontitle}{#1}\ttlsbs}
+
+\newcommand\sectiontitle{}
+\newcommand\hdrgb{\ifhmode\par\fi\removelastskip\vskip 5ex\goodbreak}
+\newcommand\hdrpre{\noindent\leavevmode\vskip -3em}
+\newcommand\hdrdec{\vskip -2ex\noindent\hrulefill\vskip -3.75ex\nobreak\noindent\hrulefill}%\vskip 1.5em}
+\newcommand\hdrpost{\nobreak\vskip 2ex\nobreak}
+\makeatletter
+\def\section{\@ifstar\unnmbsect\nmbsect}
+\def\nmbsect{\@ifnextchar[%]
+ \nmbsectwithtwoarguments\nmbsectwonearg}
+\def\unnmbsect{\@ifnextchar[%]
+ \unnmbsectwithtwoarguments\unnmbsectwonearg}
+\def\nmbsectwonearg#1{\nmbsectwithtwoarguments[#1]{#1}}
+\def\unnmbsectwonearg#1{\unnmbsectwithtwoarguments[#1]{#1}}
+\def\nmbsectwithtwoarguments[#1]#2{%  
+ \hdrgb \refstepcounter{section} \hbox to \hsize{\vbox{%
+  \hdrpre{\Huge\bfseries\raggedleft \thesection\ \\ \LARGE #2\par}\hdrdec}} \hdrpost
+ \addcontentsline{toc}{section}{\protect\numberline{\thesection} #1}
+ \renewcommand\sectiontitle{#2}}
+\def\unnmbsectwithtwoarguments[#1]#2{%
+ \hdrgb \hbox to \hsize{\vbox{%
+  \hdrpre{\LARGE\bfseries\raggedleft #2\par}\hdrdec}} \hdrpost
+ \renewcommand\sectiontitle{#2}}
+\makeatother
+
+\newcommand\chaptertitle{}
+\makeatletter
+\def\@makeschapterhead#1{\section*{#1}}
+\def\@makechapterhead#1{%
+\setcounter{page}{0}
+\thispagestyle{empty}
+\AddToShipoutPicture*{\chapterback}
+\vspace*{1em}
+\begin{minipage}{\textwidth}\input{sty_head.tex}\end{minipage}
+
+\vspace*{180\p@}%
+{\parindent \z@ \raggedright \normalfont
+\ifnum \c@secnumdepth >\m@ne
+\Huge\bfseries\centering\@chapapp\space\thechapter:\par\nobreak
+\fi
+\interlinepenalty\@M
+\Huge\bfseries #1\par\nobreak
+}
+\renewcommand\chaptertitle{#1}
+\vspace*{200pt}
+\begin{minipage}{\textwidth}\input{sty_who.tex}\end{minipage}
+\clearpage
+}
+\makeatother

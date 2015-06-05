@@ -1,0 +1,39 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- secta_main.tex
+
+\begin{minipage}{.35\textwidth}
+\tikzstyle{block} = [draw, rectangle, minimum height=2em, minimum width=4em]
+\tikzstyle{sum} = [draw, circle]
+\tikzstyle{inout} = [rectangle]
+\begin{tikzpicture}[auto, node distance=1cm,>=stealth]
+  \node [inout] (input) {$e$};
+  \node [coordinate, right of=input,node distance=.5cm] (e) {};
+  \node [block, right of=e] (int) {$Ki \cdot \frac{1}{s}$};
+  \node [block, above of=int] (pro) {$Kp$};
+  \node [block, below of=int] (der) {$Kd \cdot \frac{du}{dt}$};
+  \node [sum, right of=int,node distance=1.5cm] (sum) {\scriptsize $\sum$};
+  \node [coordinate, above of=sum] (p) {};
+  \node [coordinate, below of=sum] (d) {};
+  \node [inout, right of=sum,node distance=1.5cm] (output) {$u$};
+
+  \draw [->] (input) -- (e) -- (int);
+  \draw [->] (int) -- (sum);
+  \draw [->] (sum) -- (output);
+  \draw [->] (e) |- (pro);
+  \draw [->] (pro) -- (p) -- (sum);
+  \draw [->] (e) |- (der);
+  \draw [->] (der) -- (d) -- (sum);
+  \draw[fill](e) circle (1.5pt);
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{.4\textwidth}
+\begin{equation}
+\frac{U(s)}{E(s)} = Kp + {Ki \cdot \frac{1}{s}} + Kd \cdot s
+\label{eq:cont}
+\end{equation}
+\vspace{.05em}
+\end{minipage}

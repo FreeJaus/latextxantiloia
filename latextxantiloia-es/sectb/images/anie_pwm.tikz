@@ -1,0 +1,98 @@
+%Anie - ohkis.sourceforge.net
+%Unai Martinez Corral
+%umartinez012@ikasle.ehu.es
+%
+% <- ./cases/anie_s3etiny_man.tex
+
+\tikzstyle{inout} = [rectangle]
+\tikzstyle{block} = [draw, rectangle, minimum height=1.625em, minimum width=2em]
+\tikzstyle{lblock} = [draw, rectangle, minimum height=1.5em, minimum width=1.5em]
+\tikzstyle{cblock} = [draw, rectangle, minimum height=1.625em, minimum width=2.25em]
+\tikzstyle{reg} = [draw,rectangle, minimum height=5em, minimum width=4em]
+\tikzstyle{co} = [draw, rectangle, minimum height=9em, minimum width=18em]
+\tikzstyle{count} = [draw,fill=black!15,rectangle, minimum height=7.5em, minimum width=10.5em]
+
+\begin{tikzpicture}[auto, node distance=2cm,>=stealth]
+  \def\sep{1.5cm}
+  \def\sepl{.25em}
+  \def\bh{5em}
+  \def\bhb{.3em}
+ \def\bw{4em}
+  \def\bwb{1em}
+
+%% H
+ 
+  \node[count](ffall){};
+  \node[inout,below of=ffall,node distance=3.375em](lg){\scriptsize\bfseries\itshape s3etiny\_counter.vhd};
+
+  \node[coordinate,above of=ffall, node distance=3*\sepl](ffp){};
+  \node[reg,right of=ffp, node distance=.375*\sep](ff){$FF$};
+
+  \node[coordinate,right of=ff,node distance=.5*\bw](ffe){};
+  \node[coordinate,above of=ffe,node distance=.3*\bh](ffea){};
+  \node[coordinate, left of=ff,node distance=.5*\bw](ffw){};
+  \node[coordinate,above of=ffw,node distance=.2*\bh](ffwa){};
+  \node[coordinate,left of=ffwa,node distance=2*\sepl](ffwa_l){};
+  \node[coordinate,below of=ffw,node distance=.2*\bh](ffwb){};
+  \node[block,left of=ffwa,node distance=.5*\sep](comp){$=$};
+  \node[block,left of=ffwb,node distance=.5*\sep](countn){$+1$};
+  \node[coordinate,left of=countn,node distance=.5*\sep](countn_w){};
+
+  \node[coordinate,above of=ff,node distance=.5*\bh](ffa){};
+  \node[coordinate,left of=ffa,node distance=.25*\bw](ffaw){};
+  \node[coordinate,right of=ffa,node distance=.25*\bw](ffae){};
+
+  \node[inout,below of=ffaw,node distance=.125*\bh](e){\scriptsize en};
+  \node[inout,below of=ffae,node distance=.125*\bh](c){\scriptsize clk};
+  \node[inout,right of=ffwa,node distance=.2*\bw](srst){\scriptsize srst};
+  \node[inout,right of=ffwb,node distance=.125*\bw](d){\scriptsize D};
+  \node[inout,left of=ffe,node distance=.125*\bw](d){\scriptsize Q};
+
+  \node[inout,above of=comp,node distance=.75*\sep](limit){\small $max$};
+
+  \node[coordinate,right of=ffe,node distance=.25*\sep](un){};
+  \node[coordinate,below of=un,node distance=.625*\sep](un_b){};
+  \node[coordinate,below of=un_b,node distance=3*\sepl](un_bb){};
+
+  \node[cblock, right of=un, node distance=.75*\sep](dcc){$\leq$};
+  \node[cblock, right of=un_b, node distance=1.25*\sep](zero){$=0$};
+
+  \node[block,right of=dcc,node distance=1.5*\sep](mux){\small $MUX$};
+  \node[inout,right of=mux,node distance=.875*\sep](mux0){\small $'0'$};
+  \node[inout,above of=mux,node distance=.625*\sep](mux1){\small $'1'$};
+
+  \node[block,right of=zero,node distance=1*\sep](omux){\small $MUX$};
+  \node[coordinate,right of= omux,node distance=.625*\sep](omux_r){};
+  \node[inout,below of=omux,node distance=.75*\sep](pwm){$pwm$};
+
+  \node[coordinate,above of=ffae,node distance=.625*\sep](ffae_a){};
+  \node[coordinate,above of=ffaw,node distance=.625*\sep](en){};
+
+  \node[inout,above of=ffaw,node distance=.375*\sep](en){$'1'$};
+  \node[inout,above of=ffae,node distance=.75*\sep](clk){$clk\_pwm$};
+  \node[inout,above of=dcc,node distance=.75*\sep+.75em](dc){$dc$};
+
+  \draw[fill](un) circle (1.5pt);
+  \draw[fill](countn_w) circle (1.5pt);
+
+  \draw[->](limit) -- (comp);
+  \draw[->,densely dotted](comp) -- (ffwa);
+  \draw[->](countn) -- (ffwb);
+  \draw[->](un) -- (un_b) -- (un_bb) -| (countn_w) -- (countn);
+  \draw[->](countn_w) |- (comp);
+  \draw[->](en) -- (ffaw);
+  \draw[->,densely dashed](clk) -- (ffae);
+  
+  \draw[->](ffe) -- (dcc);
+  \draw[->](dc) -| (zero);
+
+  \draw[->](dc) -- (dcc);
+  \draw[->](mux) -- (omux);
+  \draw[->,densely dotted](dcc) -- (mux);
+  \draw[->](mux0) -- (mux);
+  \draw[->](mux1) -- (mux);
+  \draw[->](mux0) |- (omux);
+  \draw[->,densely dotted](zero) -- (omux);
+  \draw[->](omux) -- (pwm);
+
+\end{tikzpicture}

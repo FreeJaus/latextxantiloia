@@ -1,0 +1,276 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- att_main.tex
+
+Txantiloiaren erabilera zuzena da, hau da, dauden fitxategietan edukia beste edozein \LaTeX{} dokumentutan egin bezala idaztearekin nahikoa dugu. Erabilitako paketeek ezarri litzaketen mugak izan behar ditugu kontuan, eta berriren bat kargatzekotan ordenari erreparatu behar diogu.
+
+Bete beharreko baldintza bakarra dago: goiburuetan azpiatalak ondo adierazi daitezen \emph{titlesubsection} erabili behar da \emph{subsection} ordez\footnote{\emph{GNU/Linux}en \emph{grep} erabilita zuzenean egin dezagu bihurketa.}.
+
+Kodea garbi mantendu eta itxurari dagozkionak ahal den heinean banaturik mantentzeko hainbat fitxategi daude \emph{config} karpetan eta \emph{main.tex} fitxategian zenbait komando berri agertzen dira. Jarraian hauek azalduko dira, kapitulu zein atalak moldatu, gehitu zein kentzeko prozedura adierazteko.
+
+\subsection*{main.tex}\addcontentsline{toc}{subsection}{main.tex}
+
+\begin{verbatim}
+\documentclass[a4paper,titlepage,10pt,oneside]{report}
+\end{verbatim}
+
+\emph{report} klasea dugu oinarri, alde bakarrekoa, DIN A4 formatuarekin. \emph{article} erabili nahi izatekotan, \emph{minitoc} paketeari dagozkion \emph{(do)minitoc}, \emph{(do)minilof} eta \emph{(do)minilot} aginduen kudeaketa aldatu beharko litzateke (ikus \emph{config.tex} eta \emph{config\_index.tex}), paketearen dokumentazioan adierazitakoen arabera. Pakete hori erabiltzen ez bada, aldaketa zuzena da.
+
+Orriaren tamainari dagokionez, aldatzekotan kapitulu eta atalen orrietan distantziak berrikusi beharko lirateke (ikus \emph{config\_titles.tex}). Letraren tamaina aldatzean ere baliteke aldaketa txikiak somatzea.
+
+\begin{verbatim}
+\usepackage{import}
+\inputfrom{./config/}{config.tex}
+\end{verbatim}
+
+Azpikarpetatan dauden fitxategiak kargatu eta hauetan kokapen erlatiboak erabili ahal izateko \emph{import} paketea kargatu da lehenik, eta honekin \emph{config} karpeta barruko konfigurazio fitxategi nagusia.
+
+\begin{verbatim}
+\begin{document}
+\end{verbatim}
+
+\begin{verbatim}
+\DOpresetDOtitlepg
+\end{verbatim}
+
+Dokumentua hasi eta berehala \emph{config.tex} fitxategian definituta dagoen \emph{DOpresetDOtitlepg} komandoak euskaraz aurkezpena zuzenena izan dadin beharreko komandoak exekutatzen ditu, zenbakitzearen eta gaien aurkibidearen sakontasuna ezartzen ditu, kapituluen zenbakitzea zeroan abiarazten du, \emph{minitoc}ek eskatutakoak exekutatzen ditu, portada aurkezten du eta orrialde berri batean hasteko prestatzen du dokumentua.
+
+\begin{verbatim}
+\chapter{Aurkibide orokorra} \DOtls
+\end{verbatim}
+
+Lehenengo kapitulua, zerogarrena, \emph{Aurkibide orokorra} dugu. \emph{config\_index.tex} fitxategian definitutako \emph{DOtls} komandoak orrien zenbakitzea erromatarrera aldatu eta \emph{tableofcontents}, \emph{listoffigures} eta \emph{listoftables} exekutatzen ditu. Sekzio bezala gehitzen ditu aurkibidera, eta baten batek orri bat baino gehiago izatekotan goiburuak bat etor daitezen ezartzen ditu. Azkenik, berriz ere aldatzen du orrien zenbakitzea arabiarrera eta 1 balioa esleitzen dio.
+
+\begin{verbatim}
+\chapter{Memoria}
+\pagestyle{empty}\input{dedicatory}\pagestyle{body}
+\DOmtls{\DOmtoc\DOmlof\DOmlot\DOmlos}
+\end{verbatim}
+
+Memoriaren hasiera adierazi eta berehala, goiburu eta oinik ez dituen estiloa ezartzen da eskaintza aurkezteko, \emph{config\_hdr.tex} fitxategian definitutako eta orokorrean erabiliko den \emph{body} estilora bueltatu baino lehen.
+
+\emph{DOmtls} komandoak, \emph{DOtls}ek egin antzera zenbakitzea eta goiburuak moldatuz, kapituluko gaien aurkibidea (\emph{DOmtoc}), irudien zerrenda (\emph{DOmlof}), taulen zerrenda (\emph{DOmlot}) edota ikurren zerrenda (\emph{DOmlos}) aurkezten ditu. Lehenengo hirurak sortzeko \emph{minitoc} paketeak eskainitakoak erabiltzen diren bitartean, ikurren zerrendak zuzenean \emph{symbols.tex} fitxategiko edukia kargatzen du.
+
+\begin{verbatim}
+\include{intro}
+\include{license}\label{lic}
+\include{state}
+\end{verbatim}
+
+Memoriaren atalak dituzten fitxategiak zuzenean \emph{include} edo \emph{input} bitartez kargatzen dira. Lehenengoa \emph{main.tex} fitxategian baino ezin daiteke erabili, beste fitxategi guztietan \emph{input} erabiltzen da.
+
+\begin{verbatim}
+\subincludefrom{./secta/}{secta_main}
+\subincludefrom{./sectb/}{sectb_main}
+\end{verbatim}
+
+Hainbat fitxategi dituzten atalak karpeta banatuetan gordetzen dira eta \emph{main.tex}en fitxategi bakarra kargatzen da. Honek atal aldaketa txikiak eginez horiek banatu eta bakarrik konpilatzea ahalbidetzen du, eta egitura aldatu barik hainbat atal gehitzea.
+
+\begin{verbatim}
+\chapter{Neurketak eta kalkuluak} \DOmtls{\DOmtoc}
+\subincludefrom{./measures/}{measures_main}
+
+\chapter{Eranskinak} \DOmtls{\DOmtoc}
+\attref
+\subincludefrom{./att/}{att_main}
+\ordref
+
+\chapter{Baldintzen agiria} \DOmtls{\DOmtoc}
+\subincludefrom{./cond/}{cond_main}
+
+\chapter{Aurrekontua}
+\end{verbatim}
+
+Azaldutako tresna berdinak erabilita kargatzen dira hurrengo kapituluak. Ikus daitekeenez hauetan gaien aurkibidea aurkezten da soilik. \emph{Eranskinak} dokumentuaren edukia kargatu baino lehen adierazitako \emph{attref} komandoak atalen zenbakitzea alfabetora aldatzen du (ikus \emph{config\_index.tex}). Dokumentuaren bukaeran berriz ere bueltatzen da hasierako aurreko konfiguraziora (\emph{ordref}, ikus \emph{config\_basque.tex}).
+
+\begin{verbatim}
+\nocite{*}
+\chapter{Bibliografia}
+\bibliographystyle{ieeetr}
+\fancyhead[L]{\slshape \nouppercase{\bibname}}
+\bibliography{bibliography}
+\end{verbatim}
+
+Erreferentzia guztiak (estekatutakoak eta estekatu gabekoak) aurkezteko \emph{nocite{*}} deitu ostean, \emph{Bibliografia} kapitulua hasi, estiloa aukeratu, orrialde bat baino gehiago izatekotan itxura egokia aurkezteko goiburua moldatu eta \emph{bibligraphy.bib} fitxategia kargatzen du.
+
+\begin{verbatim}
+\end{document}
+\end{verbatim}
+
+\subsection*{config/config.tex}\addcontentsline{toc}{subsection}{config/config.tex}
+
+\begin{verbatim}
+\usepackage[utf8]{inputenc}
+\end{verbatim}
+
+Karaktereen kodeketa adierazteko.
+
+\begin{verbatim}
+\usepackage[spanish,basque]{babel} 
+\selectlanguage{basque}
+\end{verbatim}
+
+Tituluak batez ere, eta beste hainbat aukera, lokalizatzeko. Gaztelera kargatzen da izen propioak erabiltzean \emph{ñ} eta azentu-markekin arazorik ez izateko. 
+
+\begin{verbatim}
+\usepackage[left=3.5cm, right=1.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\end{verbatim}
+
+Normak adierazitako marjinak ezartzeko.
+
+\begin{verbatim}
+\usepackage{graphicx}
+\end{verbatim}
+
+Irudiak txertatzeko.
+
+\begin{verbatim}
+\usepackage[numbers]{natbib}
+\end{verbatim}
+
+Erreferentzia bibliografikoak testuan adieraztean \emph{[X]} itxuraz adierazi daitezen.
+
+\begin{verbatim}
+\usepackage[font=scriptsize,format=plain,labelfont=bf,textfont=it,
+            justification=centerlast]{caption}
+\end{verbatim}
+
+Irudi eta taulen oinen itxura moldatzeko.
+
+\begin{verbatim}
+\usepackage{indentfirst}
+\end{verbatim}
+
+\emph{babel} paketeak gazteleraz paragrafo bakoitzaren lehenengo lerroari ezkerreko marjina handiagoa jartzen dio, baina euskaraz ez. Honek egitera bortxatzen du, baina kontuz ibili beharko dugu irudiak eta taulak erdiratzerakoan.
+
+\begin{verbatim}
+\usepackage{multirow}
+\end{verbatim}
+
+Tauletan zutabe edo lerro anitz hartzen dituzten gelaxkak erabiltzeko.
+
+\begin{verbatim}
+\usepackage{eurofont}
+\end{verbatim}
+
+\euro{} sinboloa erabiltzeko.
+
+\begin{verbatim}
+\usepackage[usenames,dvipsnames]{xcolor}
+\colorlet{urlcolor}{purple!65!black}
+\colorlet{ilcolor}{violet!65!black}
+\end{verbatim}
+
+Esteketan, irudietan eta grafikoetan koloreak definitzeko aukera ugari izateko.
+
+\begin{verbatim}
+\usepackage{listings}
+\lstset{
+language=VHDL,
+basicstyle=\color{Blue}\footnotesize\ttfamily,
+commentstyle=\color{CadetBlue},
+stringstyle=,
+identifierstyle=\color{Black},
+backgroundcolor=\color{black!10!white},
+columns=fixed,
+extendedchars=true,
+breaklines=true,
+numbers=none
+}
+\end{verbatim}
+
+Lengoaia ezberdinetan idatzitako kodea dokumentuan txertatzeko. Eredu gisa erabili den VHDL kodea aurkezteko ausazko aurkezpenaren hautaketa.
+
+\begin{verbatim}
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{shapes,arrows}
+\usepackage{tikz-timing}
+\end{verbatim}
+
+Irudiak, grafikoak eta kronogramak egiteko.
+
+\begin{verbatim}
+\usepackage[hyphens]{url}
+\usepackage[
+ bookmarks=true,
+ unicode=true,
+ pdftitle={Karrera Amaierako Proiektuak idazteko LaTeX txantiloia},
+ pdfsubject={},
+ pdfauthor={Unai Martinez Corral},
+ linktoc=all,
+ colorlinks=true,
+ linkcolor=ilcolor,
+ urlcolor=urlcolor,
+ citecolor=Blue,
+ plainpages=false,
+]{hyperref}
+\end{verbatim}
+
+Dokumentuko erreferentziak estekatzeko eta irteerako PDF fitxategiaren propietateak ezartzeko.
+
+\begin{verbatim}
+\parskip=2mm
+\end{verbatim}
+
+Paragrafoen arteko tartea ezartzea.
+
+\begin{verbatim}
+\usepackage{amsmath}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+\numberwithin{equation}{chapter}
+\end{verbatim}
+
+Irudi, taula eta ekuazioen zenbakitzea kapitulu bakoitzean berrabiatzeko.
+
+\begin{verbatim}
+\usepackage{etoolbox}
+\end{verbatim}
+
+Komandoei dei egitean exekutatu baino lehen bitarteko ekintzak burutzeko.
+
+\begin{verbatim}
+\input{config_titles}
+\input{config_hdr}
+\input{config_basque}
+\input{config_index}
+\end{verbatim}
+
+Funtzio zehatzen konfigurazioa: portadak eta atalek goiburuak, bestelako goiburu eta oinak, euskaraz erabiltzeko hobekuntzak eta aurkibideak aurkeztea.
+
+\begin{verbatim}
+\usepackage[basque,loose]{minitoc}
+%\usepackage{mtcoff}
+\setcounter{minitocdepth}{4}
+\setlength{\mtcindent}{0pt}
+\renewcommand{\mtcfont}{\small\rm}
+\renewcommand{\mtcSfont}{\small\bf} 
+\nomtcrule \nomlfrule \nomltrule
+\end{verbatim}
+
+Kapitulu bakoitzean aurkibideak eta zerrendak aurkeztea ahalbidetzen duen paketea kargatzea eta hainbat parametro ezartzea. Hauen artean garrantzitsuena \emph{setcounter{minitocdepth}} dugu, aurkibideek aurkeztuko duten sakontasuna adierazten baitu: 0-kapitulua, 1-atala, 2-azpiatala, 3-azpiazpiatala edo 4-paragrafoa. Besteek letra mota ezartzen dute eta zerrenden inguruko lerroak ezabatzen dituzte.
+
+\begin{verbatim}
+\newcommand{\DOpresetDOtitlepg}{
+\ordref
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{1}
+\addtocounter{chapter}{-1}
+\dominitoc[e]
+\dominilof[e]
+\dominilot[e]
+\input{sty_titlepg}
+\clearpage\pagestyle{body}
+}
+\end{verbatim}
+
+Dokumentua hasi eta berehala \emph{config\_basque.tex} fitxategian definitutako \emph{ordref} komandoak euskaraz elementuen izenak ondo adierazi daitezen moldaketak burutzen ditu.
+
+Atalak zenbakitzeko erabiliko den sakontasuna adierazten da ondoren (3-azpiazpiatala), eta aurkibide nagusiak aurkeztuko duena (1-atala). Kapituluen zenbakitzea zeroan hasteko izendatuari bat kentzen zaio.
+
+\emph{minitoc}ek eskatutako komandoak adierazten dira, izenbururik gabe aurkezteko parametroarekin (\emph{[e]}). \emph{config\_index.tex} fitxategian ikus daitekeenez izenburuak banaturik sortzen dira, lan osoaren estiloa mantentzeko.
+
+Portada aurkezten da azkenik, eta berehala orrialde huts berri batean estilo orokorra ezarri.

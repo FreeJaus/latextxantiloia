@@ -1,0 +1,66 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- sectb_main.tex
+
+\titlesubsection{Co-simulation}
+
+\begin{table}[!htp]
+\centering
+\begin{tabular}[c]{c||c|c|c}
+ & & & \\
+ & {\Large$Kp$} & {\Large$Ki$} & {\Large$Kd$} \\
+ & & & \\
+\hline
+\hline
+ & & & \\
+\textbf{Hamartarra} & $6$ & $6,875\cdot 10^{-4}$ & $22,7272$ \\
+\small{Zehatza} & & & \\
+ & & & \\
+\textbf{7 bit} & 0000110. & {\tiny[0.0000000000]}1011011 & 10110.11 \\
+ & & & \\
+\textbf{Zeinua} & 00000110 & 01011011 & 01011011 \\
+\small{8 bit} & & & \\
+ & & & \\
+\textbf{Hamartarra} & $6$ & $6,943 \cdot 10^{-4}$ & $22.75$ \\
+\small{8 bitetik} &
+ \multirow{2}{*}{\footnotesize $\begin{matrix}\Delta0\\\%0\end{matrix}$} &
+ \multirow{2}{*}{\footnotesize $\begin{matrix}\Delta6,8\cdot 10^{-6}\\\%0,9891\end{matrix}$} &
+ \multirow{2}{*}{\footnotesize $\begin{matrix}\Delta0,0228\\\%0,1\end{matrix}$} \\
+\small{bihurtuta} & & & \\
+ & & & \\
+\textbf{Formatoa} & Fix\_8\_0 & Fix\_8\_17 & Fix\_8\_2 \\
+ & & & \\
+\end{tabular}
+\caption[Konstanteei esleitu beharreko hitz bitarrak kalkulatzea]{Balio zehatzetatik abiatuta, konstanteen seinaleei esleitu beharreko hitz bitarren kalkulua.}
+\label{tab:vhdl_coef}
+\end{table}
+
+Blokearen konfigurazio aukeretan \emph{Simulation mode} aukeran \emph{ISE Simulator} aukeratuko dugu. Honela egingo ez bagenu, \emph{Simulink}ek beste blokea guztien kalkuluak burutuko lituzke, baina \emph{Blackbox}eko irteera guztien balioa zero izango litzateke.
+
+Zuzenean simulazioa eginez gero, grafikoetan antzemango dugu irteerak balio oso altuak dituela, eta kontrola ezinezkoa dela. Gure VHDL kontroladorearen irteeraren koma bitarra, aurreko atalean adierazi bezala, ez dago $lsb$an ezta $minbp$ parametroak adierazitakoan. \emph{Simulink}ek ez du sarreren koma bitarraren kokapena kontuan hartzen eta ondorioz interpretatzean $2^8$ aldiz biderkatzen du irteeraren balioa.
+
+\begin{figure}[!htp]
+\centering
+\input{images/mod_box.tikz}
+\caption[Modeloa: \emph{Blackbox} (kontroladorea)]{\emph{Blackbox} blokea erabiltzeko kontroladorearen modeloa ($K_p=24$ eta $K_i=K_d=91$).}
+\label{fig:mod_box}
+\end{figure}
+
+Nahiz eta hitz tamaina mugatu, parametroekin adierazpenak aldatu eta eskuz egindako VHDL deskribapena erabilita, azkeneko modelo honek modelo jarraituarekiko duen ezberdintasuna funtsean diskretu izateagatik dela iritzi dezakegu, guk egindako pausu guztiek eragindako erroreak oso txikitzat hartuz ($\%0,5$-tik behera).
+
+\begin{figure}[!htp]
+\centering
+\input{images/anie_pwm.tikz}
+\caption{PWM seinalea sortzea.}
+\label{fig:pwm}
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\input{images/anie_hbridge.tikz}
+\caption{FSM adibidea.}
+\label{fig:hbridge}
+\end{figure}

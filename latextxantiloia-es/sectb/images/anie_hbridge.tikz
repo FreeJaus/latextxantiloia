@@ -1,0 +1,46 @@
+%Anie - ohkis.sourceforge.net
+%Unai Martinez Corral
+%umartinez012@ikasle.ehu.es
+%
+% <- ./cases/anie_s3etiny_man.tex
+
+\usetikzlibrary{shapes,arrows}
+
+\tikzstyle{decision} = [diamond, draw, text width=4.5em, text badly centered, inner sep=0pt]
+\tikzstyle{state} = [rectangle, draw, fill=black!15, text width=5.25em, text centered, minimum height=3.5em]
+\tikzstyle{action} = [draw, ellipse]
+
+\begin{tikzpicture}[auto, node distance=3cm,>=stealth]
+\def\sep{3.5cm} 
+
+  \node[state](fw){$FW$\\$en \leftarrow en\_in$};
+  \node[decision,right of=fw](fwd){$dir\_ch$\\$=1?$};
+  \node[action,above of=fw,node distance=.5*\sep](fwb){$act \leftarrow dir\_in$};
+  \node[action,right of=fwd](fwc){$act \leftarrow pre$};
+
+  \node[state,right of=fwc](dis_en){$DIS\_EN$\\$en \leftarrow 0$};
+  \node[action,below of=dis_en,node distance=.5*\sep](dis_ena){$act \leftarrow pre$};
+
+  \node[state,left of=dis_ena](ch_dir){$CH\_DIR$\\$en \leftarrow 0$};
+
+  \draw[->](fw) -- (fwd);
+  \draw[->](fwd) |- node [near start,right] {F} (fwb);
+  \draw[->](fwb) -- (fw);
+  \draw[->](fwd) -- node [near start] {T} (fwc);
+  \draw[->](fwc) -- (dis_en);
+  \draw[->](dis_en) -- (dis_ena);
+  \draw[->](dis_ena) -- (ch_dir);
+  \draw[->](ch_dir) -| (fwd);
+%  \draw[->](ch_dir) -- (ch_dira);
+ % \draw[->](ch_dira) -- (ch_dird);
+ % \draw[->](ch_dird) -- node [near start,above] {F} (ch_dirb);
+ % \draw[->](ch_dird) -- node [near start] {T} (ch_dirc);
+ % \draw[->](ch_dirc) -- (ch_dir);
+
+%  \node[count](ffall){};
+%  \node[decision,below of=ffall](dec){};
+%  \node[state,below of=dec](st){};
+ % \node[action,below of=st](act){};
+ % \node[cloud,below of=act](cl){$dir\_out \leftarrow dir\_pre$};
+
+\end{tikzpicture}

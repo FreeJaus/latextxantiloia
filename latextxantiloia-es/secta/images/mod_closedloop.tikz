@@ -1,0 +1,30 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- secta_main.tex
+
+\tikzstyle{block} = [draw, rectangle, minimum height=1cm]
+\tikzstyle{sum} = [draw, circle]
+\tikzstyle{inout} = [rectangle]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+\begin{tikzpicture}[auto, node distance=1.5cm]
+    \node [inout, name=input] {$erreferentzia$};
+    \node [sum, right of=input,node distance=2cm] (sum) {\scriptsize $\sum$};
+    \node [block, right of=sum,node distance=2cm] (controller) {Kontroladorea};
+    \node [block, right of=controller, pin={[pinstyle]above:Asaldurak},
+            node distance=2.5cm] (system) {Planta};
+    \node [coordinate, right of=system,node distance=1cm](un){};
+    \node [inout, right of=un,node distance=1cm] (output) {$irteera$};
+    \node [block, below of=controller] (measurements) {Irakurketa};
+
+    \draw [->] (input) -- node {} (sum);
+    \draw [->] (sum) -- node {} (controller);
+    \draw [->] (controller) -- node {} (system);
+    \draw [->] (system) -- node [name=y] {} (output);
+    \draw [->] (un) |- (measurements);
+    \draw [->] (measurements) -| node[pos=0.9] {$-$} 
+        node [near end] {} (sum);
+    \draw[fill](un) circle (1.5pt);
+\end{tikzpicture}

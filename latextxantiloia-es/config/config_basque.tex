@@ -1,0 +1,24 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- config.tex
+
+\makeatletter
+%\renewcommand{\fnum@figure}{\thefigure~\figurename}
+%\renewcommand{\fnum@table}{\thetable~\tablename}
+
+\newcommand{\ordref}{
+\renewcommand*\thesection{\arabic{section}.}
+\renewcommand*\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand*\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+
+\renewcommand\thefigure{\arabic{chapter}.\arabic{figure}.}
+\renewcommand\thetable{\arabic{chapter}.\arabic{table}.}
+\renewcommand\theequation{\arabic{chapter}.\arabic{equation}}
+}
+\makeatother
+
+\addto\captionsspanish{\renewcommand{\chaptername}{Documento}}
+\newcommand\gaur{\today}

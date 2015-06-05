@@ -1,0 +1,70 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- sectb_last.tex
+
+\tikzstyle{inout} = [rectangle]
+\tikzstyle{gate} = [draw, rectangle, fill=orange!25, minimum height=3ex,minimum width=4.5em]
+\tikzstyle{mem} = [draw, rectangle, minimum height=3ex,minimum width=4.5em]
+\tikzstyle{block} = [draw, rectangle, fill=green!25, minimum height=13em, minimum width=4.5em]
+
+\tikzstyle{mgate} = [draw, circle, fill=orange!25,minimum width=1em]
+\tikzstyle{mmem} = [draw, circle,minimum width=1em]
+\tikzstyle{mblock} = [draw, circle, fill=green!25, minimum width=1em]
+
+\begin{tikzpicture}[auto, node distance=.75cm,>=stealth]
+  \def\sep{1.5cm}
+  \def\bh{2.5em}
+  \def\bw{2.25em}
+
+  \node[block](pid){$PID$};
+  \node [coordinate, left of=pid,node distance=\bw](kp_p){};
+  \node [coordinate, above of=kp_p,node distance=\bh](f_p){};
+  \node [coordinate, above of=f_p,node distance=\bh](r_p){};
+  \node [coordinate, below of=kp_p,node distance=\bh](ki_p){};
+  \node [coordinate, below of=ki_p,node distance=\bh](kd_p){};
+
+  \node [gate, left of=r_p,node distance=\sep] (r_g) {Fix\_12\_8};
+  \node [gate, left of=f_p,node distance=\sep] (f_g) {Fix\_12\_8};
+  \node [gate, left of=kp_p,node distance=\sep] (kp_g) {Fix\_8\_0};
+  \node [gate, left of=ki_p,node distance=\sep] (ki_g) {Fix\_8\_0};
+  \node [gate, left of=kd_p,node distance=\sep] (kd_g) {Fix\_8\_0};
+
+  \node [inout, left of=r_g, node distance=1.25*\sep] (r) {$ref$};
+  \node [inout, left of=f_g, node distance=1.25*\sep] (f) {$feed$};
+  \node [inout, left of=kp_g, node distance=1.25*\sep] (kp) {$K_p$};
+  \node [inout, left of=ki_g, node distance=1.25*\sep] (ki) {$K_i$};
+  \node [inout, left of=kd_g, node distance=1.25*\sep] (kd) {$K_d$};
+
+  \node [mem, right of=pid,node distance=1.75*\sep] (reint) {Fix\_22\_10};
+  \node [gate, right of=reint,node distance=1.75*\sep] (gate_out) {Out};
+  \node [inout, right of=gate_out,node distance=1.25*\sep] (o) {$o$};
+   
+\footnotesize
+
+  \node [mgate, below of=gate_out, node distance=.85*\sep] (lgate) {};
+  \node [inout, right of=lgate,node distance=.75*\sep] (ltgate) {Gateway};
+  \node [mblock, below of=lgate,node distance=.3*\sep] (lblock) {};
+  \node [inout, right of=lblock,node distance=.75*\sep] (ltblock) {Blackbox};
+  \node [mmem, below of=lblock,node distance=.3*\sep] (lmem) {};
+  \node [inout, right of=lmem,node distance=.75*\sep] (ltmem) {Reinterpret};
+  
+  \draw [->]  (r_g) -- (r_p);
+  \draw [->] (f_g) -- (f_p);
+  \draw [->] (kp_g) -- (kp_p);
+  \draw [->] (ki_g) -- (ki_p);
+  \draw [->] (kd_g) -- (kd_p);
+
+  \draw [->]  (r) -- (r_g);
+  \draw [->] (f) -- (f_g);
+  \draw [->] (kp) -- (kp_g);
+  \draw [->] (ki) -- (ki_g);
+  \draw [->] (kd) -- (kd_g);
+
+  \draw [->] (pid) -- (reint);
+  \draw [->] (reint) -- (gate_out);
+  \draw [->] (gate_out) -- (o);
+  
+\end{tikzpicture}

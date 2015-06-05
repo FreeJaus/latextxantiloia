@@ -1,0 +1,71 @@
+%Anie - ohkis.sourceforge.net
+%Unai Martinez Corral
+%umartinez012@ikasle.ehu.es
+%
+% <- anie.tex
+
+\section{Sarrera}
+
+2007 urtean zehar \emph{Iñaki Silanes}ek, \textbf{U}niversidad del \textbf{P}aís \textbf{V}asco \textbf{/} \textbf{E}uskal \textbf{H}erriko \textbf{U}nibertsitateko\footnote{\url{www.ehu.es}} \textbf{ITSAS}\footnote{\url{itsas.ehu.es}} Software Libre Taldeko kideak, \LaTeX{}\footnote{\url{en.wikipedia.org/wiki/LaTeX}} eta \emph{OpenDocument}\footnote{\url{en.wikipedia.org/wiki/OpenDocument}} formatuetan Unibertsitatean gazteleraz, euskaraz zein ingelesez Karrera Amaierako Proiektuak zein Doktorego Tesiak aurkezteko txantiloiak eskaintzeko helburuarekin \emph{Plantillas para Proyecto de Fin de Carrera} lan taldea\footnote{\url{itsas.ehu.es/workgroups/plantillas_proyecto_fin_de_carrera}} osatu zuen.
+
+2010 urtean \emph{Digna González} eta \emph{Unai Martinez}ek lan talde berrian\footnote{\url{itsas.ehu.es/workgroups/latex}} \emph{Iñaki Silanes}en lana \emph{\LaTeX{}} erabiltzeko hainbat argibide, erreferentzia, aurkezpen eta abarrekin bateratu zuten eta material bera baliatuz zenbait ikastaro eman.
+
+Idazleak, \textbf{Bi}lboko \textbf{I}ndustria \textbf{I}ngeniaritza \textbf{T}eknikoko \textbf{U}nibertsitate \textbf{E}skolan\footnote{\url{www.industria-ingeniaritza-tekniko-bilbao.ehu.es}} Karrera Amaierako Proiektua euskaraz idazteko orduan eskuragarri zeuden txantiloiek premia\footnote{\url{www.industria-ingeniaritza-tekniko-bilbao.ehu.es/p229-content/eu/contenidos/normativa/euiti_bi_pfc/eu_nor_gral/normativa_gral_fin_carrera.html}} guztiak asetzen ez zituztenez, aipatutako lan taldeetan bildutakoak oinarri, eskuartean duzun txantiloi berria egin du. \hyperref[tab:comp]{\ref*{tab:comp} taula}k \emph{Iñaki Silanes}ek eskainitakoekiko ezberdintasun nagusiak biltzen ditu.
+
+\begin{table}[!htp]
+\begin{tabular}{c c c c l}
+& \bfseries Hizkuntza & \bfseries Formatua & \bfseries Klasea & \\
+&&&&\\
+\multirow{2}{*}{\bfseries Iñaki Silanes} & EU & \LaTeX{} & \multirow{2}{*}{\emph{itsas\_pfc.cls}} & \multirow{2}{*}{\emph{book} oinarri}\\
+& ES EN & OpenDocument & & \\
+&&&&\\
+\bfseries Unai Martinez & EU & \LaTeX{} & \emph{report} & \emph{config} fitxategietan moldatuta\\
+\end{tabular}
+\caption{\emph{Iñaki Silanes}en txantiloiekin konparaketa.}
+\label{tab:comp}
+\end{table}
+
+Horietaz gain, hurrengo berrikuntzak ditu honek:
+
+\begin{itemize}
+\item{Kapitulu, atal, azpiatal, azpiazpiatal, irudi eta taulak zenbakitu eta izendatzean zenbakia azaltzen da lehenengo, puntu ordinala ondoren eta hitza azkenik.}
+\item{\emph{babel}ek \emph{basque} aukeratzean ezatzen duen data komandoaren ordez \emph{gaur} sortu da.}
+\item{\emph{Kapitulu}en izen gisa \emph{Dokumentu} ezarri da.}
+\item{BI-IITUEko web gunean soilik DOC formatuan eskuragarri dauden txantiloiak erabili dira \emph{Kapitulu/Dokumentu}en portadak diseinatzeko.}
+\item{Atalen goiburuak aldatu dira.}
+\item{Ikurren Zerrenda gehitu da.}
+\item{BI-IITUEko arautegiak eskatu bezala, \emph{UNE 157001-2002} araua erreferentzia izanik banatu da edukia. Hala ere, txantiloi honek ez du araua betetzen. Karrera Amaierako Proiektuen helburu nagusia hezkuntza eta ikastea izanik, edukia aurkitzea eta dokumentuen banakako azterketa errazteko diseinuan zenbait erabaki ezberdin hartu dira:
+ \begin{itemize}
+  \item{Dokumentuen ordena aldatu da eta zenbait ezabatu.}
+  \item{Portadak ez daude zenbakituta.}
+  \item{Orrialde, irudi, taula eta ekuazioen zenbakitzea kapitulu bakoitzean berrabiatzen da.} 
+  \item{Zenbakitzea 0an hasten da.}
+  \item{Aurkibideen orrialdeak zenbaki erromatarrez daude adierazita.}
+  \item{Eranskinen dokumentuan atalak alfabetoz izendatzen dira.}
+  \item{Goiburu eta orri oinen edukiak tokiz aldatuta daude eta dokumentu, atal zein azpiatalen arabera berritzen dira.}
+ \end{itemize}
+Hau dela eta, araua betetzeko \emph{config} karpetako fitxategietan moldaketak egin behar ditu txantiloiaren erabiltzaileak.
+}
+\end{itemize}
+
+Txantiloia erabiltzeko argibideak (fitxategien antolaketa, moldaketen izaera, etab.) \hyperref[att:atta]{\ref*{att:atta} eranskin}ean eta \hyperref[att:attb]{\ref*{att:attb} eranskin}ean aurkitu daitezke.
+
+Edozein kasutan, emaitza zuzena izan dadin hainbat aldiz konpilatu behar da lana, hurrengo ordena jarraituz:
+
+\begin{center}
+\Large\bfseries
+PDFLaTeX + BibTeX + PDFLaTeX + PDFLaTeX
+\end{center}
+
+Atal eta azpiataletan aldaketa asko egitean, tarte fitxategiak edo fitxategi laguntzaileak (\emph{.aux}, \emph{.mtc}, \emph{.mlf}, \emph{.mlt}, etab.) ezabatzea komeni da, aurreko katea exekutatu baino lehen.
+
+\bigskip
+
+Adibide den txosten honetan zehar, garapenean zehar erabilitako zenbait baliabide tartekatuko dira, ideiak hartzeko balioko dutelako itxaropenez. \hyperref[fig:ychart]{\ref*{fig:ychart} irudia}k adierazten duen grafikoa, esaterako. Irudi guztien kodea txantiloien iturrietan dago, \emph{TikZ/PGF}\footnote{\url{texample.net/tikz/examples}} paketeak baliatuz egin baitira.
+
+\begin{figure}[!htp]
+\centering
+\input{images/ychart.tikz}
+\caption{Gajski-Kuhn Y-grafikoan proiektuaren abstrakzio maila.} 
+\label{fig:ychart}
+\end{figure}

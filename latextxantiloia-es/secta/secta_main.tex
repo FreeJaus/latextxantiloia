@@ -1,0 +1,67 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- main.tex
+
+\section{Atal bat}
+
+\begin{figure}[!htp]
+\centering
+%\input{images/mod_closedloop.tikz}
+\caption{Oinarrizko berrelikatutako kontrol sistema.}
+\label{fig:mod_closedloop}
+\end{figure}
+
+Ohiko berrelikatutako kontrol sistema \hyperref[fig:mod_closedloop]{\ref*{fig:mod_closedloop} irudia}n agertzen da adierazita.
+
+\begin{equation}
+\dfrac{0,94}{0,116 s + 1}
+\label{eq:tf_dc}
+\end{equation}
+
+Posizio kontrola egiteko xedez, plantaren transferentzia funtzioari irabazia ($K=0.83$) eta integrazio funtzioa ($\frac{1}{s}$) biderkatu zaizkio, (\ref{eq:tf_dc_pos}) erabili da planta gisa.
+
+\begin{equation}
+\dfrac{0,94}{0,116 s + 1} \cdot {0,83} \cdot \dfrac{1}{s} = \dfrac{0,7802}{s (0,116 s + 1)}
+\label{eq:tf_dc_pos}
+\end{equation}
+
+\begin{description}
+\item[Proportzionala]{\hfill
+
+Kontroladorearen sarrera den erreferentzia ($r$) eta plantaren irteeraren ($y$) arteko errore seinalea ($e$) handitu egiten du irteeran ($u$).
+
+\[
+u(t)=K_p \cdot e(t) \qquad \qquad \frac{U(s)}{E(s)}=K_d
+\]}
+\item[Integratzailea]{\hfill
+
+Errore seinalea integratu eta konstante batez biderkatzen du. \emph{Automatic reset} ere esaten zaio funtzio honi.
+
+\[
+u(t)=K_i \int^t_0{e(\tau}){d\tau} \qquad \qquad \frac{U(s)}{E(s)}=\frac{K_i}{s}
+\]}
+\item[Deribatzailea]{\hfill
+
+Errore seinalea deribatzen du eta konstante batez biderkatu. \emph{Anticipatory control}, \emph{rate action} edo \emph{pre-act} adierazpideak ditu.
+
+\[
+u(t)=K_d \frac{de(t)}{dt} \qquad \qquad \frac{U(s)}{E(s)}=K_d \cdot s
+\]}
+\end{description}
+
+\begin{figure}[!htp]
+\centering
+%\input{images/mod_cont_lum.tikz}
+\caption[Modeloa: jarraitua (kontroladorea)]{Azterketarako erabilitako PID kontroladorearen modelo jarraitua.}
+\label{fig:mod_cont_lum}
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+%\input{images/s3etiny_lcd.tikz}
+\caption{LCD kudeatzailea.}
+\label{fig:lcd}
+\end{figure}

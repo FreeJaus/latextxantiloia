@@ -1,0 +1,73 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- config.tex
+
+\makeatletter
+\newcommand\attref{}
+\pretocmd{\attref}{
+\renewcommand*\thesection{\Alph{section}.}
+\renewcommand\thefigure{\Alph{section}.\arabic{figure}.}
+\renewcommand\thetable{\Alph{section}.\arabic{table}.}
+\renewcommand\theequation{\Alph{section}.\arabic{equation}}
+\fancyhead[R]{}
+}{}{}
+\makeatother
+
+\makeatletter
+\newcommand*{\ititle}{}
+\newcommand*{\DOititle}{}
+\newcommand*{\DOmnow}{}
+
+\newcommand*\DOtls{\DOmpre\DOtocloflot\DOmpost}
+\newcommand*\DOmtls[1]{\DOmcpre\DOmtitle #1 \DOmcpost}
+
+\newcommand*\DOmpre{\renewcommand{\thepage}{\roman{page}}}
+\newcommand*\DOmcpre{\clearpage\setcounter{page}{1}
+\renewcommand*{\thepage}{\arabic{chapter}-\roman{page}}}
+\newcommand*\DOmpost{ \renewcommand{\thepage}{\arabic{chapter}-\arabic{page}}
+\pagestyle{body} }
+\newcommand*\DOmcpost{\setcounter{page}{1}\DOmpost}
+
+\newcommand*\DOtocloflot{
+\renewcommand*{\ititle}{\contentsname} \renewcommand*{\DOititle}{\tableofcontents}
+\renewcommand*{\DOmnow}{} \DOmhere
+\renewcommand*{\ititle}{\listfigurename} \renewcommand*{\DOititle}{\listoffigures}
+\renewcommand*{\DOmnow}{} \DOmhere
+\renewcommand*{\ititle}{\listtablename} \renewcommand*{\DOititle}{\listoftables}
+\renewcommand*{\DOmnow}{} \DOmhere
+}
+
+\newcommand*\DOmhere{
+\fancyhead[L]{\slshape \nouppercase{\ititle}}
+\DOititle \addcontentsline{toc}{section}{\ititle}
+\DOmnow \clearpage
+}
+
+\newcommand*\DOmtitle{\renewcommand*{\DOititle}{\section*{\ititle}}}
+
+\newcommand*\DOmtoc{ \renewcommand*{\ititle}{\contentsname} \renewcommand*{\DOmnow}{\minitoc}
+\DOmhere}
+\newcommand*\DOmlof{ \renewcommand*{\ititle}{\listfigurename} \renewcommand*{\DOmnow}{\minilof}
+\DOmhere}
+\newcommand*\DOmlot{ \renewcommand*{\ititle}{\listtablename} \renewcommand*{\DOmnow}{\minilot}
+\DOmhere}
+\newcommand*\DOmlos{ \renewcommand*{\ititle}{Lista de símbolos} \renewcommand*{\DOmnow}{\input{symbols}}
+\DOmhere}
+\makeatother
+
+\makeatletter
+%\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}
+%  {3.25ex \@plus 1ex \@minus .2ex}{.01pt}%
+%  {\normalfont\normalsize\bfseries}%
+%}
+\makeatother
+
+\makeatletter
+%\renewcommand*\l@section{\@dottedtocline{1}{1.5em}{1em}}
+%\renewcommand*\l@subsection{\@dottedtocline{2}{3.35em}{2em}}
+%\renewcommand*\l@subsubsection{\@dottedtocline{3}{5.4em}{3em}}
+%\renewcommand*\l@paragraph{\@dottedtocline{4}{9.4em}{4em}}
+\makeatother

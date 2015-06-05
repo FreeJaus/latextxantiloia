@@ -1,0 +1,90 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- main.tex
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel} 
+%\selectlanguage{basque}
+\usepackage[left=3.5cm, right=1.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage[backend=biber,style=ieee-alphabetic,natbib=true]{biblatex} %added
+%\addbibresource{IEEEfull.bib} %added
+%\addbibresource{IEEEexample.bib} %added
+\addbibresource{bibliography.bib}
+\usepackage[font=scriptsize,format=plain,labelfont=bf,textfont=it,justification=centerlast]{caption}
+\usepackage{indentfirst}
+\usepackage{multirow}
+\usepackage{eurofont}
+
+\usepackage[usenames,dvipsnames]{xcolor}
+\colorlet{urlcolor}{purple!65!black}
+\colorlet{ilcolor}{violet!65!black}
+
+\usepackage{listings}
+\lstset{
+language=VHDL,
+basicstyle=\color{Blue}\footnotesize\ttfamily,
+commentstyle=\color{CadetBlue},
+stringstyle=,
+identifierstyle=\color{Black},
+backgroundcolor=\color{black!10!white},
+columns=fixed,
+extendedchars=true,
+breaklines=true,
+numbers=none
+}
+
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{shapes,arrows}
+\usepackage{tikz-timing}
+
+%\usepackage[hyphens]{url}
+\usepackage[
+ bookmarks=true,
+ unicode=true,
+ pdftitle={Plantilla LaTeX para elaborar el Trabajo Fin de Grado},
+ pdfsubject={},
+ pdfauthor={Unai Martinez Corral},
+ linktoc=all,
+ colorlinks=true,
+ linkcolor=ilcolor,
+ urlcolor=urlcolor,
+ citecolor=Blue,
+ plainpages=false,
+]{hyperref}
+	
+\parskip=2mm
+
+\usepackage{amsmath}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+\numberwithin{equation}{chapter}
+
+\usepackage{etoolbox}
+\input{config_titles}
+\input{config_hdr}
+\input{config_basque}
+\input{config_index}
+
+\usepackage[spanish,loose]{minitoc}
+%\usepackage{mtcoff}
+\setcounter{minitocdepth}{4}
+\setlength{\mtcindent}{0pt}
+\renewcommand{\mtcfont}{\small\rm}
+\renewcommand{\mtcSfont}{\small\bf} 
+\nomtcrule \nomlfrule \nomltrule
+
+\newcommand\DOpresetDOtitlepg{
+%\ordref
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{1}
+\addtocounter{chapter}{-1}
+%\dominitoc[e]
+%\dominilof[e]
+%\dominilot[e]
+\input{sty_titlepg}
+\clearpage\pagestyle{body}
+}

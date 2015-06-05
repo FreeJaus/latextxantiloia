@@ -1,0 +1,76 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- sectb_main.tex
+
+\titlesubsection{Liburutegiak}
+
+VHDL-93 estandarreko \emph{numeric\_std} paketearen \emph{shift\_right}, \emph{shift\_left} eta \emph{resize} funtzioen argibideak jarraituz, hauek dira informazio esanguratsua babestuz koma bitarraren kokapenaren araberako moldaketak burutzeko erabilitako adierazpenak:
+
+\begin{description}
+\item[resize(shift\_right(\emph{signal},$n$),$wl-n$)]{\hfill \\Pisu gutxieneko bitak galduz seinalea moztea}
+\item[shift\_right(\emph{signal},$n$)]{\hfill \\Luzera mantenduz koma bitarra eskumara mugitzea edo $2^{n}$ aldiz zatitzea}
+\item[shift\_left(resize(\emph{signal},$wl+n$),$n$)]{\hfill \\Koma hitza luzatuz ezkerrera mugitzea edo $2^{n}$ aldiz biderkatzea}
+\end{description}
+
+Laburbilduz, \emph{IEEE} liburutegiko \emph{sdt\_logic\_1164} eta \emph{numeric\_std} paketeak baino ez dira kargatu. Burutuko ditugun eragiketak oso konplexuak ez direnez sintetizatzean programak berak aukeratuko ditu, \emph{IP Core} bereziren instantzia barik. Hauen beharra kodearen bitartez adieraziko dugu, modu funtzionalean.
+
+\lstinputlisting[firstline=4,lastline=6]{anie_vhdl_pid.vhd}
+
+\titlesubsection{Entitatea}
+
+\lstinputlisting[firstnumber=last,firstline=9,lastline=9]{anie_vhdl_pid.vhd}
+
+\subsubsection{\emph{generic} parametroak}
+
+Kontroladorearen erabilera errazteko, eta konfigurazio denbora murrizteko, seinale guztiak parametrizatu egin dira. Honela, aldagaien ($i\_wl$), irteeraren ($o\_wl$), koefizienteen ($k\_wl$) edota funtzio integratzailearen memoriaren ($irem\_wl$\footnote{$irem\_wl$-ren funtsa \emph{anti-windup} estrategiaren deskribapenean azaltzen da.}) hitz luzera aldatuz gero barne egitura moldatzen da.
+
+\subsubsection{Atakak}
+
+\lstinputlisting[firstnumber=last,firstline=21,lastline=30]{anie_vhdl_pid.vhd}
+
+\titlesubsection{Arkitektura}
+
+\subsubsection{Osagaiak}
+
+Sarrerekin gertatu bezala, VHDL deskribapenean kontroladoreak aurreko modeloetan irteeran agertu izan den saturazio blokea ere barnean izango du. Adar integratzailean ere, \emph{windup} arazoa konpontzeko erabilitako estrategiaren arabera, saturatzeko beharra izan dezakegu. Horregatik sarreran seinale bat jaso eta irteeran saturatutako seinale berdina ateratzen duen parametrizatutako osagaia deskribatu da.
+
+\noindent
+\begin{minipage}{.45\textwidth}
+\lstinputlisting[firstnumber=last,firstline=33,lastline=38]{anie_vhdl_sat.vhd}
+\end{minipage}
+\hspace{.5em}
+\begin{minipage}{.5\textwidth}
+\centering
+\input{images/vhdl_sat.tikz}
+\end{minipage}
+
+\subsubsection{Seinaleak}
+
+\begin{table}[!htp]
+\centering
+\begin{tabular}{ccc|ccc}
+\textbf{id} & \textbf{msb} & \textbf{comment} & $\quad$ \textbf{id} & \textbf{msb} & \textbf{comment}\\
+\hline
+\hline
+&&&&&\\
+$ref$ & \multirow{2}{*}{i\_wl-1} & $r(k)\quad$ & $\quad int_{mult}$ & \multirow{2}{*}{mw} & $K_i \cdot (e(k) + e(k-1))$ \\
+$feed$ & & $y(k)\quad$ & $\quad der_{out}$ & & $K_d \cdot (e(k) - e(k-1))$ \\
+&&&&&\\
+$dif_{act}$ & \multirow{2}{*}{aswl-1} & $e(k)\quad$ & $\quad int_{out}$ & \multirow{3}{*}{oswl-1} & $u_{isat}(k)$ \\
+$dif_{pre}$ & & $e(k-1)\quad$ & $\quad int_{rem}$ & & $u_{isat}(k-1)$ \\
+&&& $\quad out_{sat}$ & & $u_{sat}(k)$ \\
+$int_{sum}$ & \multirow{2}{*}{aswl} & $e(k) + e(k-1)\quad$ &&& \\
+$der_{dif}$ & & $e(k) - e(k-1)\quad$ & $\quad int_{tosat}$ & \multirow{2}{*}{oswl} & $u_{i}(k)$ \\
+&&&$\quad out_{tosat}$ & & $\quad u(k)$ \\
+$pro_{out}$ & mwl-1	& $K_p \cdot e(k)\quad$ &&&\\
+\end{tabular}
+
+\begin{minipage}{.55\textwidth} \begin{lstlisting}
+ signal id: signed(msb downto 0); --comment
+\end{lstlisting} \end{minipage}
+\caption{Kontroladorearen arkitekturan deklaratutako seinaleak eta hitz luzerak.}
+\label{tab:vhdl_signals}
+\end{table}

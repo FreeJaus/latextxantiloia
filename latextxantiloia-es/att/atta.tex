@@ -1,0 +1,107 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- att_main.tex
+
+Txantiloia osatzen duten fitxategien egitura azaltzen da atal honetan, kokatzeko ezinbestekoak direnak adieraziz. Azterketa zehatzagorako ikus \hyperref[att:attb]{\ref*{att:attb} eranskina} edo jo aitorpenetan adierazitako \hyperref[lic]{iturrietara}.
+
+\begin{description}
+ \item[main.tex]{\hfill\\Txantiloriaren fitxategi nagusia, \emph{document} deklaratu eta beste guztiak kargatzen dituena.}
+ \item[dedicatory.tex]{\hfill\\Memoriaren portadaren hurrengo orrialde hutsean adierazten den eskaintza.}
+ \item[intro.tex]{\hfill\\Memoriaren lehenengo atalaren edukia, \emph{Sarrera}.}
+ \item[license.tex]{\hfill\\Memoriaren bigarren atalaren edukia, \emph{Lizentzia eta aitorpenak}.}
+ \item[state.tex]{\hfill\\Memoriaren hirugarren atalaren edukia, \emph{Teknikaren egoera}.}
+ \item[sty\_titlepg.tex]{\hfill\\Portada nagusiaren edukia.}
+ \item[sty\_head.tex]{\hfill\\Portada guztien goiburuaren diseinua.}
+ \item[sty\_who.tex]{\hfill\\Portada guztien oinaren diseinua.}
+ \item[symbols.tex]{\hfill\\\emph{Ikurren Zerrenda}ren edukia.}
+ \item[bibliography.bib]{\hfill\\Erreferentzia bibliografikoak \emph{BibTeX}en arabera.}
+ \item[images/]{\hfill
+ 
+  \begin{description}
+   \item[logo.png]{\hfill\\Portada nagusian erdian agertzen den logoa.}
+   \item[ehu.png]{\hfill\\Portaden goiburuan ezkerrean agertzen den logoa.}
+   \item[euiti.png]{\hfill\\Portaden goiburuan eskuinean agertzen den logoa.}
+   \item[ychart.tikz]{\hfill\\Ereduzko Y-grafikoa TikZ bitartez deskribatua.}
+  \end{description} 
+ }
+ \item[config/]{\hfill
+ 
+  \begin{description}
+   \item[config.tex]{\hfill\\Konfigurazio fitxategi nagusia, kargatzen denean lehena eta pakete guztiak kargatzeaz gain hainbat komando (ber)ezartzen dituena.}
+   \item[config\_basque.tex]{\hfill\\Nahiz eta \emph{babel} paketea erabili, euskaraz hainbat gauza formatu egokian adierazi daitezen moldaketak.}
+   \item[config\_hdr.tex]{\hfill\\Portaden atzeko planoko diseinua (laukizuzena) eta atalaren arabera goiburu eta oinen edukia moldatzea.}
+   \item[config\_index.tex]{\hfill\\\emph{minitoc} paketeak eskainitako funtzioetan oinarrituta \emph{DOtls} eta \emph{DOmtls} komandoak sortzea eta aurkibideen marjinak doitzea.}
+   \item[config\_titles.tex]{\hfill\\Kapitulu, atal eta azpiatalak aldatzean izenburu berriak eskuratu eta aldagai ezagunetan gordetzea.}
+  \end{description}
+ }
+ \item[secta/]{\hfill
+ 
+  \begin{description}
+   \item[secta\_main.tex]{\hfill\\Ereduzko atal baten fitxategi nagusia.}
+   \item[images/]{\hfill
+   
+    \begin{description}
+     \item[mod\_closedloop.tikz]{\hfill\\Ereduzko irudi bat.}
+     \item[mod\_cont\_lum.tikz]{\hfill\\Ereduzko irudia ekuazio batekin batera.}
+     \item[s3etiny\_lcd.tikz]{\hfill\\Beste irudi bat.}
+    \end{description}   
+   }
+  \end{description} 
+ }
+ \item[sectb/]{\hfill
+ 
+  \begin{description}
+   \item[sectb\_main.tex]{\hfill\\Ereduzko beste atal baten fitxategi nagusia}
+   \item[sectb\_first.tex]{\hfill\\Atalaren lehenengo edukiak dituen fitxategia.}
+   \item[sectb\_last.tex]{\hfill\\Atalaren azkeneko edukiak dituen fitxategia.}
+   \item[anie\_vhdl\_sat.vhd]{\hfill\\\emph{listings} paketea baliatuz aurkeztutako ereduzko VHDL kodea.}
+   \item[anie\_vhdl\_pid.vhd]{\hfill\\\emph{listings} paketea baliatuz aurkeztutako ereduzko VHDL kodea.}
+   \item[images/]{\hfill
+   
+    \begin{description}
+     \item[mod\_box.tikz]{\hfill\\Ereduzko irudia TikZ eta kolore ezberdinak erabilita.}
+     \item[vhdl\_sat.tikz]{\hfill\\Beste bat.}
+     \item[anie\_pwm.tikz]{\hfill\\Beste bat (PWM sortzailea).}
+     \item[anie\_hbridge.tikz]{\hfill\\Beste bat (FSM).}
+    \end{description}   
+   }
+  \end{description} 
+ }
+ \item[measures/]{\hfill
+ 
+  \begin{description}
+   \item[measures\_main.tex]{\hfill\\\emph{Neurketa eta kalkuluak} dokumentuaren fitxategi nagusia.}
+  \end{description} 
+ }
+ \item[att/]{\hfill
+
+  \begin{description}
+   \item[att\_main.tex]{\hfill\\\emph{Eranskinak} dokumentuaren fitxategi nagusia.}
+   \item[atta.tex]{\hfill\\Lehenengo eranskinaren edukia.}
+   \item[attb.tex]{\hfill\\Bigarren eranskinaren edukia.}
+   \item[attc.vhd]{\hfill\\Hirugarren eranskinaren edukia.}
+   \item[m/]{\hfill\\Hirugarren eranskinaren iturriak, \emph{Matlab} \emph{script}ak.\hfill
+   
+    \begin{description}
+     \item[tune.m]{}
+     \item[save\_bw.m]{}
+     \item[save\_step.m]{}
+     \item[save\_ts.m]{}
+    \end{description}   
+   }
+  \end{description}
+ }
+ \item[cond/]{\hfill
+
+  \begin{description}
+   \item[cond\_main.tex]{\hfill\\\emph{Baldintzen agiria} dokumentuko fitxategi nagusia.}
+   \item[cond\_adm.tex]{\hfill\\\emph{Baldintza administratiboak} atalaren edukia.}
+   \item[cond\_tec.vhd]{\hfill\\\emph{Baldintza teknikoak} atalaren edukia.}
+   \item[cond\_eco.vhd]{\hfill\\\emph{Baldintza ekonomikoak} atalaren edukia.}
+   \item[cond\_comp.tex]{\hfill\\\emph{Osagaiak eta ezaugarriak} atalaren edukia.}
+  \end{description} 
+ }
+\end{description}

@@ -1,0 +1,96 @@
+% Karrera Amarierako Proiektua egiteko LaTeX txantiloia
+% itsas.ehu.es/workgroups/latex
+% Unai Martinez Corral
+% umartinez012@ikasle.ehu.es
+%
+% <- sectb_first.tex
+
+\tikzstyle{un} = [draw, circle, fill=black!75!blue]
+\tikzstyle{resize} = [draw, rectangle,\const, fill=blue!30]
+\tikzstyle{inout} = [rectangle]
+\tikzstyle{block} = [draw, rectangle, minimum height=2.5em, minimum width=3.5em]
+\tikzstyle{cblock} = [draw, rectangle, minimum height=2.5em, minimum width=2.25em]
+
+\begin{tikzpicture}[auto,node distance=1cm]
+  \def\sep{1cm}
+  \def\bh{.5em}
+  \def\bw{1.75em}
+  \def\bwc{1.125em}
+  \def\const{black!65!blue}
+  \def\var{black!65!red}
+
+  \node [inout,\const] (max) {$max$};
+  \node [coordinate, below of=max, node distance=.5*\sep] (max_r_b) {};
+
+  \node [inout, \const,right of=max_r_b, node distance=.5*\sep] (min) {$min$};
+  \node [coordinate, right of=min, node distance=.375*\sep] (min_r) {};
+
+  \node [inout, \var, below of=min_r,node distance=.875*\sep] (ref) {$ref$};
+  \node [coordinate, right of=ref, node distance=.6*\sep] (ref_r) {};
+  \node [coordinate, right of=ref_r, node distance=1.5*\sep] (cn_p) {};
+
+  \node [cblock, below of=cn_p,node distance=.625*\sep] (cn) {\Large $<$};
+  \node [coordinate, left of=cn,node distance=\bwc] (cnw) {};
+  \node [coordinate, above of=cnw,node distance=\bh] (cnwa) {};
+  \node [coordinate, below of=cnw,node distance=\bh] (cnwb) {};
+  \node [coordinate, right of=cn,node distance=.75*\sep] (cn_r) {};
+  \node [coordinate, right of=cn_r,node distance=.25*\sep] (cn_r_r) {};
+
+  \node [resize,left of=cnwb,node distance=.75*\sep] (nres) {\scriptsize resize};
+
+  \node [coordinate, right of=cn_p,node distance=.75*\sep] (mn_p) {};
+  \node [block, above of=mn_p,node distance=.875*\sep-\bh] (mn) {$MUX$};
+  \node [coordinate, left of=mn,node distance=\bw] (mnw) {};
+  \node [coordinate, above of=mnw,node distance=\bh] (mnwa) {};
+  \node [coordinate, below of=mnw,node distance=\bh] (mnwb) {};
+  \node [coordinate, right of=mn,node distance=.85*\sep] (mn_r) {};
+
+  \node [resize,\var,fill=red!30,left of=mnwb,node distance=.75*\sep] (rres) {\scriptsize resize};
+
+  \node [coordinate, below of=cn,node distance=.75\sep] (cn_b) {};
+
+  \node [coordinate, right of=mn_p,node distance=\sep] (cm_p) {};
+  \node [cblock, below of=cm_p,node distance=1.25*\sep] (cm) {\Large $>$};
+  \node [coordinate, left of=cm,node distance=\bwc] (cmw) {};
+  \node [coordinate, above of=cmw,node distance=\bh] (cmwa) {};
+  \node [coordinate, below of=cmw,node distance=\bh] (cmwb) {};
+  \node [coordinate, right of=cm,node distance=.75*\sep] (cm_r) {};
+
+  \node [resize,left of=cmwb,node distance=.75*\sep] (pres) {\scriptsize resize};
+
+  \node [block, above of=cm_r,node distance=2.625*\sep-\bh] (mm) {$MUX$};
+  \node [coordinate, left of=mm,node distance=\bw] (mmw) {};
+  \node [coordinate, above of=mmw,node distance=\bh] (mmwa) {};
+  \node [coordinate, below of=mmw,node distance=\bh] (mmwb) {};
+
+  \node [inout, right of=mm,node distance=1.5*\sep] (sat) {$sat$};
+
+  \node [inout,\const,right of=cm_r, node distance=1.25*\sep] (constant) {\tiny \textbf{constant}};
+  \node [inout,\var,below of=constant, node distance=.3*\sep] (variable) {\tiny \textbf{variable}};
+  \node [coordinate,\const,left of=constant,node distance=.725*\sep] (constlg) {};
+  \node [coordinate,\var,left of=variable,node distance=.725*\sep] (varlg) {};
+  \draw[fill,\const](constlg) circle (1.5pt);  
+  \draw[fill,\var](varlg) circle (1.5pt);
+
+  \draw[fill](ref_r) circle (1.5pt);
+
+  \draw [->,\var] (ref_r) |- (cnwa);
+  \draw [->,\const] (nres) -- (cnwb);
+  \draw [->,\const](min) |- (nres);
+
+  \draw [->,\var] (ref) -| (cn_r_r) |- (cmwa);
+  \draw [->,\const] (pres) -- (cmwb);
+  \draw [->,\const] (max) |- (pres);
+
+  \draw [->] (cn) -- (cn_r) -- (mn);
+  \draw [->] (cm) -- (cm_r) -- (mm);
+
+  \draw [->,\const] (min) -- (mnwa);
+  \draw [->,\var] (rres) |- (mnwb);
+  \draw [->,\var] (ref_r) |- (rres);
+
+  \draw [->,\const] (max) -- (mmwa);
+  \draw [->] (mn.east) -- (mn_r) |- (mmwb);
+
+  \draw [->] (mm) -- (sat);
+\end{tikzpicture}
